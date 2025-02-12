@@ -15,37 +15,32 @@ function getPlayerChoice() {
     return playerChoice;
 }
 
-function playGame() {
 
-    let playerScore = 0;
-    let computerScore = 0;
+let playerScore = 0;
+let computerScore = 0;
 
-    function playRound() {
-        console.log("Player score: " + playerScore);
-        console.log("Computer score: " + computerScore);
-        
-        let computerChoice = getComputerChoice();
-        let playerChoice = getPlayerChoice();
-        console.log("You played: " + playerChoice);
-        console.log("Computer played: " + computerChoice);
+function playRound() {
+    console.log("Player score: " + playerScore);
+    console.log("Computer score: " + computerScore);
 
-        //This is terrible but I don't know how to do it better without arrays
-        if (computerChoice == 'rock' && playerChoice == 'paper') { console.log('You win! Paper beats rock.'); playerScore++ }
-        else if (computerChoice == 'paper' && playerChoice == 'rock') { console.log('You lose! Paper beats rock.'); computerScore++ }
-        else if (computerChoice == 'scissors' && playerChoice == 'rock') { console.log('You win! Rock beats scissors.'); playerScore++ }
-        else if (computerChoice == 'rock' && playerChoice == 'scissors') { console.log('You lose! Rock beats scissors.'); computerScore++ }
-        else if (computerChoice == 'paper' && playerChoice == 'scissors') { console.log('You win! Scissors beats paper.'); playerScore++ }
-        else if (computerChoice == 'scissors' && playerChoice == 'paper') { console.log('You lose! Scissors beats paper.'); computerScore++ }
-        else if (computerChoice === playerChoice) { console.log("It's a tie!") }
-    }
+    let computerChoice = getComputerChoice();
+    let playerChoice = getPlayerChoice();
+    console.log("You played: " + playerChoice);
+    console.log("Computer played: " + computerChoice);
 
-
-    if (playerScore > computerScore) {
-        console.log("You win!");
-    } else if (playerScore == computerScore) {
-        console.log("It's a tie!");
-    }
-
+    //This is terrible but I don't know how to do it better without arrays
+    if (computerChoice == 'rock' && playerChoice == 'paper') { console.log('You win! Paper beats rock.'); playerScore++ }
+    else if (computerChoice == 'paper' && playerChoice == 'rock') { console.log('You lose! Paper beats rock.'); computerScore++ }
+    else if (computerChoice == 'scissors' && playerChoice == 'rock') { console.log('You win! Rock beats scissors.'); playerScore++ }
+    else if (computerChoice == 'rock' && playerChoice == 'scissors') { console.log('You lose! Rock beats scissors.'); computerScore++ }
+    else if (computerChoice == 'paper' && playerChoice == 'scissors') { console.log('You win! Scissors beats paper.'); playerScore++ }
+    else if (computerChoice == 'scissors' && playerChoice == 'paper') { console.log('You lose! Scissors beats paper.'); computerScore++ }
+    else if (computerChoice === playerChoice) { console.log("It's a tie!") }
 }
 
-playGame();
+
+if (playerScore > computerScore) {
+    console.log("You win!");
+} else if (playerScore == computerScore) {
+    console.log("It's a tie!");
+}
