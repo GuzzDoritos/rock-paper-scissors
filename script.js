@@ -9,22 +9,19 @@ function getComputerChoice() {
     }
 }
 
-function getPlayerChoice() {
-    let playerChoice = prompt("Welcome to the Rock, Paper and Scissors game! You'll be playing against the computer.\nChoose between 'rock', 'paper' or 'scissors'.\nPlease type the options exactly as they're written.\nRefresh page if it breaks :3");
-    playerChoice = playerChoice.toLowerCase();
-    return playerChoice;
-}
 
 
 let playerScore = 0;
 let computerScore = 0;
 
-function playRound() {
+
+function playRound(playerChoice) {
+
+
     console.log("Player score: " + playerScore);
     console.log("Computer score: " + computerScore);
 
     let computerChoice = getComputerChoice();
-    let playerChoice = getPlayerChoice();
     console.log("You played: " + playerChoice);
     console.log("Computer played: " + computerChoice);
 
@@ -39,8 +36,22 @@ function playRound() {
 }
 
 
-if (playerScore > computerScore) {
+if (playerScore === 5) {
     console.log("You win!");
-} else if (playerScore == computerScore) {
-    console.log("It's a tie!");
+} else if (computerScore === 5) {
+    console.log("You lose!");
 }
+
+const rockBtn = document.querySelector('#rock');
+const paperBtn = document.querySelector('#paper');
+const scissorsBtn = document.querySelector('#scissors');
+
+rockBtn.addEventListener('click', () => {
+    playRound("rock");
+})
+paperBtn.addEventListener('click', () => {
+    playRound("paper");
+})
+scissorsBtn.addEventListener('click', () => {
+    playRound("scissors");
+})
