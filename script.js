@@ -6,42 +6,74 @@ const roundNumber = document.querySelector("#round-number");
 const playerScoreDisplay = document.querySelector('#player-score');
 const computerScoreDisplay = document.querySelector('#computer-score');
 
+const shapes = [ 
+    {
+        name: 'Rock',
+        value: 1
+    },
+
+    {
+        name: 'Paper',
+        value: 2
+    },
+
+    {
+        name: 'Scissors',
+        value: 3
+    } 
+]
+
 let playerScore = 0;
 let computerScore = 0;
 let round = 0;
 
+// returns 1, 2 or 3
 function getComputerChoice() {
-    let randomChoice = Math.floor(Math.random() * 3) + 1;
-    if (randomChoice == 1) {
-        return 'rock';
-    } else if (randomChoice == 2) {
-        return 'paper';
-    } else {
-        return 'scissors'
-    }
+    let randomChoice = Math.floor(Math.random() * shapes.length);
+    let choice = shapes[randomChoice].value;
+    return choice;
+}
+
+function pickWinner(playerChoice, computerChoice) {
+    let winner = (((computerChoice - playerChoice) % 3) + 3) % 3;
+    return winner;
 }
 
 function playRound(playerChoice) {
     let roundMessage = "";
     let computerChoice = getComputerChoice();
 
-    //This is terrible but I don't know how to do it better without arrays
-    if (computerChoice == 'rock' && playerChoice == 'paper') { roundMessage = 'You win! Paper beats rock.'; playerScore++ }
-    else if (computerChoice == 'paper' && playerChoice == 'rock') { roundMessage = 'You lose! Paper beats rock.'; computerScore++ }
-    else if (computerChoice == 'scissors' && playerChoice == 'rock') { roundMessage = 'You win! Rock beats scissors.'; playerScore++ }
-    else if (computerChoice == 'rock' && playerChoice == 'scissors') { roundMessage = 'You lose! Rock beats scissors.'; computerScore++ }
-    else if (computerChoice == 'paper' && playerChoice == 'scissors') { roundMessage = 'You win! Scissors beats paper.'; playerScore++ }
-    else if (computerChoice == 'scissors' && playerChoice == 'paper') { roundMessage = 'You lose! Scissors beats paper.'; computerScore++ }
-    else if (computerChoice === playerChoice) { roundMessage = "It's a tie!" }
+    const computerChoiceName = shapes[computerChoice - 1].name;
+    const playerChoiceName = shapes[playerChoice - 1].name;
 
-    roundDisplay.textContent = roundMessage;
+    console.log("Computer: " + computerChoiceName);
+    console.log(playerChoiceName);
+    
+    const whoWon = pickWinner(playerChoice, computerChoice);
+    console.log(whoWon);
+
+    switch (whoWon) {
+        case 0:
+            roundMessage = "It's a tie!";
+            break;
+        case 1:
+            roundMessage = `You lose! ${computerChoiceName} ${computerChoiceName == "Scissors" ? "beat" : "beats"} ${playerChoiceName.toLocaleLowerCase()}.`
+            computerScore++
+            break;
+        case 2:
+            roundMessage = `You win! ${playerChoiceName} ${playerChoiceName == "Scissors" ? "beat" : "beats"} ${computerChoiceName.toLocaleLowerCase()}.`
+            playerScore++
+            break;
+    }
+
+    roundDisplay.textContent = `Computer played ${computerChoiceName.toLocaleLowerCase()}. ${roundMessage}`;
     playerScoreDisplay.textContent = playerScore;
     computerScoreDisplay.textContent = computerScore;
     round++;
     roundNumber.textContent = round; 
 }
 
-function checkRound(choice) {
+function checkRound(playerChoice) {
     if (round === 5 ) {
         if (playerScore > computerScore) {
             roundDisplay.textContent = "Game is over. You win with " + playerScore + " points!";
@@ -60,17 +92,17 @@ function checkRound(choice) {
             round = 0;   
         }
     } else {
-        playRound(choice);
+        playRound(playerChoice);
     }
 }
 
 
 rockBtn.addEventListener('click', () => {
-    checkRound("rock");
+    checkRound(1);
 })
 paperBtn.addEventListener('click', () => {
-    checkRound("paper");
+    checkRound(2);
 })
 scissorsBtn.addEventListener('click', () => {
-    checkRound("scissors");
+    checkRound(3);
 })
